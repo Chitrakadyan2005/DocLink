@@ -2,6 +2,14 @@ import Notification from "../models/notification.model.js";
 import Post from "../models/post.model.js";
 import User from "../models/user.model.js";
 import { v2 as cloudinary } from "cloudinary";
+import OpenAI from "openai";
+import faiss from "faiss-node";
+import dotenv from "dotenv";
+dotenv.config();
+
+
+const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+let index = new faiss.IndexFlatL2(512); 
 
 export const createPost = async (req, res) => {
 	try {
@@ -15,6 +23,9 @@ export const createPost = async (req, res) => {
 		if (!text && !img) {
 			return res.status(400).json({ error: "Post must have text or image" });
 		}
+		let imageUrl = null;
+		let imageEmbedding = null;
+		let textEmbedding = null;
 
 		if (img) {
 			const uploadedResponse = await cloudinary.uploader.upload(img);
