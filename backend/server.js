@@ -1,6 +1,6 @@
-import path from "path";
 import express from "express";
 import dotenv from "dotenv";
+import path from "path";
 import cookieParser from "cookie-parser";
 import { v2 as cloudinary } from "cloudinary";
 
@@ -12,7 +12,9 @@ import notificationRoutes from "./routes/notification.route.js";
 import connectMongoDB from "./db/connectMongoDB.js";
 import cors from "cors";
 
-dotenv.config();
+
+
+dotenv.config({ path: "../.env" });
 
 cloudinary.config({
 	cloud_name: process.env.CLOUDINARY_CLOUD_NAME, 
@@ -21,7 +23,7 @@ cloudinary.config({
 });
 
 const app = express(); // ✅ Pehle app ko initialize karo!
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 6000;
 const __dirname = path.resolve();
 
 // ✅ Ab CORS middleware lagao
