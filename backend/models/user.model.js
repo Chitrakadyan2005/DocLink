@@ -21,6 +21,15 @@ const userSchema = new mongoose.Schema(
 			required: true,
 			unique: true,
 		},
+		isVerified: {
+			type: Boolean,
+			default: false, // By default, the doctor is not verified
+		},
+		specialization: {
+			type: String,
+			default: "", // Empty by default
+		},
+
 		followers: [
 			{
 				type: mongoose.Schema.Types.ObjectId,
