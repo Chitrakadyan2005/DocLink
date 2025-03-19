@@ -1,0 +1,41 @@
+{
+	"name": "twitter-clone",
+	"version": "1.0.0",
+	"description": "![Demo App](https://i.ibb.co/f8y9vGS/Group-82.png)",
+	"main": "backend/server.js",
+	"scripts": {
+		"dev": "cross-env NODE_ENV=development nodemon backend/server.js",
+		"start": "cross-env NODE_ENV=production node backend/server.js",
+		"build": "npm install && npm install --prefix frontend && npm run build --prefix frontend"
+	},
+	"keywords": [],
+	"author": "",
+	"type": "module",
+	"license": "ISC",
+	"dependencies": {
+		"@tanstack/react-query": "^5.68.0",
+		"bcryptjs": "^2.4.3",
+		"cloudinary": "^2.6.0",
+		"cookie-parser": "^1.4.7",
+		"cors": "^2.8.5",
+		"cross-env": "^7.0.3",
+		"dotenv": "^16.4.7",
+		"express": "^4.21.2",
+		"jsonwebtoken": "^9.0.2",
+		"mongoose": "^8.12.1",
+		"react-hot-toast": "^2.5.2",
+		"react-icons": "^5.5.0",
+		"react-router-dom": "^7.3.0"
+	},
+	"devDependencies": {
+		"nodemon": "^3.1.9"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/Chitrakadyan2005/doc-sphere.git"
+	},
+	"bugs": {
+		"url": "https://github.com/Chitrakadyan2005/doc-sphere/issues"
+	},
+	"homepage": "https://github.com/Chitrakadyan2005/doc-sphere#readme"
+}
