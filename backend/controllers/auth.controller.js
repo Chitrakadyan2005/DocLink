@@ -38,12 +38,28 @@ export const signup = async (req, res) => {
 		const salt = await bcrypt.genSalt(10);
 		const hashedPassword = await bcrypt.hash(password, salt);
 
+        // Upload license file if specialization is provided (i.e., user is a doctor)
+		let licenseUrl = null;
+
+		if (specialization) {
+			if (!licenseFile) {
+				return res.status(400).json({ error: "License file is required for doctors" });
+			}
+			const uploadedLicense = await cloudinary.uploader.upload(licenseFile, {
+				folder: "doctor_licenses",
+			});
+			licenseUrl = uploadedLicense.secure_url;
+		}
+
 		// Create a new user object
 		const newUser = new User({
 			fullName,
 			username,
 			email,
 			password: hashedPassword,
+			specialization: specialization || null, // Store as null if not provided
+			licenseUrl, // Only for doctors
+			isVerified: false, // All users start as unverified
 		});
 
 		// Save user to the database
@@ -62,6 +78,9 @@ export const signup = async (req, res) => {
 			following: newUser.following,
 			profileImg: newUser.profileImg,
 			coverImg: newUser.coverImg,
+			isVerified: newUser.isVerified, // Always false initially
+			...(newUser.isVerified && { specialization: newUser.specialization }), // Include specialization only if verified
+
 		});
 	} catch (error) {
 		console.log("Error in signup controller:", error.message);
@@ -96,6 +115,9 @@ export const login = async (req, res) => {
 			following: user.following,
 			profileImg: user.profileImg,
 			coverImg: user.coverImg,
+			isVerified: user.isVerified, 
+			...(user.isVerified && { specialization: user.specialization }), // Include specialization only if verified
+
 		});
 	} catch (error) {
 		console.log("Error in login controller", error.message);
@@ -115,8 +137,13 @@ export const logout = async (req, res) => {
 
 export const getMe = async (req, res) => {
 	try {
-		const user = await User.findById(req.user._id).select("-password");
-		res.status(200).json(user);
+		const user = await User.findById(req.user._id).select("-password -licenseUrl");
+		const userResponse = {
+			...user.toObject(),
+			...(user.isVerified && { specialization: user.specialization }), // Include specialization only if verified
+		};
+
+		res.status(200).json(userResponse);
 	} catch (error) {
 		console.log("Error in getMe controller", error.message);
 		res.status(500).json({ error: "Internal Server Error" });
