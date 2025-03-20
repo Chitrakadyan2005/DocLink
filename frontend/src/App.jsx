@@ -15,27 +15,32 @@ import LoadingSpinner from "./components/common/LoadingSpinner";
 
 function App() {
 	const { data: authUser, isLoading } = useQuery({
-		// we use queryKey to give a unique name to our query and refer to it later
 		queryKey: ["authUser"],
 		queryFn: async () => {
 			try {
 				const res = await fetch("/api/auth/me", {
-					credentials: "include", // ✅ Cookies allow karega
+					credentials: "include",
 				});
-				const data = await res.json();
-				if (data.error) return null;
+	
+				// Agar response empty hai ya valid nahi hai, handle it
 				if (!res.ok) {
-					throw new Error(data.error || "Something went wrong");
+					const errorText = await res.text(); // Read response text
+					throw new Error(errorText || "Something went wrong");
 				}
+	
+				const data = await res.json().catch(() => null); // Prevent JSON error
+				if (!data || data.error) return null;
+				
 				console.log("authUser is here:", data);
 				return data;
 			} catch (error) {
 				console.error("Auth Error:", error);
-				throw new Error(error);
+				return null; // Query should not fail completely
 			}
 		},
 		retry: false,
 	});
+	
 
 	if (isLoading) {
 		return (
