@@ -23,7 +23,7 @@ cloudinary.config({
 });
 
 const app = express(); // ✅ Pehle app ko initialize karo!
-const PORT = process.env.PORT || 6001;
+const PORT = process.env.PORT || 3000;
 const __dirname = path.resolve();
 
 // ✅ Ab CORS middleware lagao
