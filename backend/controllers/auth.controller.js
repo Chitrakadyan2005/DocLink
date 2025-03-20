@@ -4,7 +4,7 @@ import bcrypt from "bcryptjs";
 
 export const signup = async (req, res) => {
 	try {
-		const { fullName, username, email, password } = req.body;
+		const { fullName, username, email, password, specialization, licenseFile } = req.body;
 
 		// Validate required fields
 		if (!fullName || !username || !email || !password) {
