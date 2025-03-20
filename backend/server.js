@@ -23,7 +23,7 @@ cloudinary.config({
 });
 
 const app = express(); // ✅ Pehle app ko initialize karo!
-const PORT = process.env.PORT || 6000;
+const PORT = process.env.PORT || 6001;
 const __dirname = path.resolve();
 
 // ✅ Ab CORS middleware lagao
@@ -42,6 +42,13 @@ app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/posts", postRoutes);
 app.use("/api/notifications", notificationRoutes);
+
+app.get("/api/auth/me", (req, res) => {
+    console.log("GET /api/auth/me hit!");  // Debugging ke liye
+
+    res.json({ message: "User authenticated!" });
+});
+
 
 // ✅ Windows-compatible environment variable check
 if (process.env.NODE_ENV === "production") {

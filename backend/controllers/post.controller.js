@@ -8,7 +8,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 
-const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+//const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 let index = new faiss.IndexFlatL2(512); 
 
 export const createPost = async (req, res) => {
