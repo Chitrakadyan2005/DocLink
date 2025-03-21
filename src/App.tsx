@@ -45,7 +45,7 @@ function App() {
                   />
                   <div>
                     <p className="font-medium text-gray-900 flex items-center">
-                      Dr. Sarah Wilson
+                      Dr. Amit Chauhan
                       <CheckCircle className="w-4 h-4 text-teal-500 ml-1" />
                     </p>
                     <p className="text-sm text-gray-500">Cardiologist</p>

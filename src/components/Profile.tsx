@@ -21,7 +21,7 @@ const Profile: React.FC = () => {
         <div className="flex items-center justify-between">
           <div>
             <div className="flex items-center">
-              <h1 className="text-2xl font-bold text-gray-900">Dr. Sarah Wilson</h1>
+              <h1 className="text-2xl font-bold text-gray-900">Dr. Priya Verma</h1>
               <CheckCircle className="w-6 h-6 text-teal-500 ml-2" />
             </div>
             <p className="text-gray-600">Cardiologist at Heart Care Center</p>

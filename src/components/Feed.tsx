@@ -5,7 +5,7 @@ const Feed: React.FC = () => {
   const posts = [
     {
       id: 1,
-      author: 'Dr. John Smith',
+      author: 'Dr. Priya Verma',
       specialty: 'Neurologist',
       verified: true,
       content: 'New research findings on cognitive health and prevention of neurodegenerative diseases. #Neurology #Healthcare',
@@ -15,7 +15,7 @@ const Feed: React.FC = () => {
     },
     {
       id: 2,
-      author: 'Dr. Emily Chen',
+      author: 'Dr. Rohan Sharma',
       specialty: 'Cardiologist',
       verified: true,
       content: 'Important update on latest cardiovascular treatment protocols. Thread below 🧵',
