@@ -10,29 +10,40 @@ interface AuthForm {
   specialty?: string;
 }
 
-const AuthPage = ({ isSignup }: { isSignup: boolean }) => {
+  const AuthPage = ({ isSignup }: { isSignup: boolean }) => {
   const { register, handleSubmit, formState: { errors } } = useForm<AuthForm>();
   const navigate = useNavigate();
   const [error, setError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const onSubmit = async (data: AuthForm) => {
+    setIsLoading(true);
+    setError(null);
     try {
       const response = await fetch(
-        isSignup ? "/api/auth/register" : "/api/auth/login",
+        isSignup ? "http://localhost:6001/api/auth/register"
+    : "http://localhost:6001/api/auth/login",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(data),
         }
       );
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || "Something went wrong");
+      }
       const result = await response.json();
-      if (!response.ok) throw new Error(result.message);
       localStorage.setItem("token", result.token);
-      navigate("/");
+      localStorage.setItem("user", JSON.stringify(result.user)); // Store user data
+      navigate("/profile"); // Redirect to profile page
     } catch (err) {
       setError((err as Error).message);
+    } finally {
+      setIsLoading(false);
     }
   };
+  
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-gradient-to-r from-teal-50 to-green-100">
