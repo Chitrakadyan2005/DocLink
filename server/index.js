@@ -17,6 +17,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Cloudinary configuration
+if (!process.env.CLOUDINARY_CLOUD_NAME || !process.env.CLOUDINARY_API_KEY || !process.env.CLOUDINARY_API_SECRET) {
+  console.error('⚠️ Cloudinary credentials missing! Check your .env file.');
+  process.exit(1);
+}
+
+// Cloudinary configuration
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
   api_key: process.env.CLOUDINARY_API_KEY,
@@ -26,14 +32,16 @@ cloudinary.config({
 // MongoDB connection
 mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log('Connected to MongoDB Atlas'))
-  .catch((error) => console.error('MongoDB connection error:', error));
+  .catch((error) => {console.error('MongoDB connection error:', error);
+  process.exit(1); // Stop server if DB fails
+});
 
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/posts', postRoutes);
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 6001;
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  console.log(`Server running on port ${PORT}in ${process.env.NODE_ENV || 'development'} mode`);
 });
