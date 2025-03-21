@@ -33,10 +33,6 @@ const Sidebar: React.FC = () => {
           </Link>
         ))}
       </nav>
-
-      <button className="mt-auto bg-teal-600 text-white rounded-lg py-3 px-4 font-medium hover:bg-teal-700 transition-colors">
-        Start Live Session
-      </button>
     </div>
   );
 }
