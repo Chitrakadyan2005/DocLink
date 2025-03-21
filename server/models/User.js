@@ -13,16 +13,27 @@ const userSchema = new mongoose.Schema({
   },
   password: {
     type: String,
-    required: true
-  },
-  specialty: {
-    type: String,
-    required: true
+    required: true,
+    minLength: 6
   },
   verified: {
     type: Boolean,
     default: false
   },
+  specialty: {
+    type: String,
+    default: ''
+  },
+  followers: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    default: []
+  }],
+  following: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    default: []
+  }],
   profileImage: {
     type: String,
     default: ''
@@ -31,16 +42,26 @@ const userSchema = new mongoose.Schema({
     type: String,
     default: ''
   },
-  location: String,
-  hospital: String,
-  bio: String,
-  followers: [{
+  bio: {
+    type: String,
+    default: ''
+  },
+  location: {
+    type: String,
+    default: ''
+  },
+  hospital: {
+    type: String,
+    default: ''
+  },
+  link: {
+    type: String,
+    default: ''
+  },
+  likedPosts: [{
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'User'
-  }],
-  following: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User'
+    ref: 'Post',
+    default: []
   }]
 }, {
   timestamps: true
