@@ -1,0 +1,24 @@
+
+# Dependency directories
+node_modules/
+dist/
+dist-ssr/
+
+# Local environment files
+.env
+*.local
+
+# OS-specific files (Windows & macOS)
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor directories and files
+.vscode/
+!.vscode/extensions.json
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
