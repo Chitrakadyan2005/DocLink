@@ -6,21 +6,21 @@ const Search: React.FC = () => {
   const [suggestions] = useState([
     {
       id: 1,
-      name: 'Dr. Sarah Wilson',
+      name: 'Dr. Sneha Tiwari',
       specialty: 'Cardiologist',
       verified: true,
       image: 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=150'
     },
     {
       id: 2,
-      name: 'Dr. John Smith',
+      name: 'Dr. Vikram Yadav',
       specialty: 'Neurologist',
       verified: true,
       image: 'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=150'
     },
     {
       id: 3,
-      name: 'Dr. Emily Chen',
+      name: 'Dr. Priya Verma',
       specialty: 'Pediatrician',
       verified: false,
       image: 'https://images.unsplash.com/photo-1594824476967-48c8b964273f?w=150'
